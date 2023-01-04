@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Model,TodoItems } from './model';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ToDo Application';
-  user = 'Resul Kızmaz';
-  list_items = [
-    { description: 'Kahvaltı', action: 'No' },
-    { description: 'Sinema', action: 'No' },
-    { description: 'Spor', action: 'No' },
-    { description: 'Kodlama', action: 'No' },
-    { description: 'Akşam Yemeği', action: 'No' },
-  ];
+  model = new Model();
+
+  getName() {
+    return this.model.user;
+  }
+  getItems() {
+    //items'ların içindeki item.action değeri false olanları
+    return this.model.items.filter((item) => !item.action);
+  }
+  addItem(value: string){
+    if(value!=""){
+      this.model.items.push(new TodoItems(value,false));
+    }
+  }
 }
